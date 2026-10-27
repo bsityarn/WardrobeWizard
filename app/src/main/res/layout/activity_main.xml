@@ -83,8 +83,7 @@
             android:text="Sign up"
             android:textSize="16sp"
             android:textColor="#2a9599"
-            android:fontFamily="@font/didact_gothic"
-            android:paintFlags="underlineText" />
+            android:fontFamily="@font/didact_gothic" />
 
     </LinearLayout>
 
