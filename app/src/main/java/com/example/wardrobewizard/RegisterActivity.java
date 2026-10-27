@@ -4,8 +4,10 @@ package com.example.wardrobewizard;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 
         // Connect XML elements
         editTextFirstName = findViewById(R.id.editTextFirstName);
@@ -65,6 +68,23 @@ public class RegisterActivity extends AppCompatActivity {
 
             datePickerDialog.show();
         });
+
+
+        // Gender picker
+        Spinner spinnerGender = findViewById(R.id.spinnerGender);
+        String[] genderOptions = {"Select Gender", "Male", "Female"};
+
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                genderOptions
+        );
+
+        genderAdapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item
+        );
+
+        spinnerGender.setAdapter(genderAdapter);
 
         // Register button
         buttonRegister.setOnClickListener(v -> {

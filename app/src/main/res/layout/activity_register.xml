@@ -51,19 +51,42 @@
 
         </LinearLayout>
 
-        <!-- Birthday / Date Picker -->
-        <EditText
-            android:id="@+id/editTextBirthday"
+
+        <!-- Birthday and Gender -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/didact_gothic"
-            android:hint="Birthday"
-            android:focusable="false"
-            android:clickable="true"
-            android:cursorVisible="false"
-            android:inputType="none"
-            android:minHeight="48dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <!-- Birthday: 70% -->
+            <EditText
+                android:id="@+id/editTextBirthday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/didact_gothic"
+                android:hint="Birthday"
+                android:focusable="false"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:inputType="none"
+                android:minHeight="48dp" />
+
+            <!-- Gender: 30% -->
+            <Spinner
+                android:id="@+id/spinnerGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:minHeight="48dp"
+                android:fontFamily="@font/didact_gothic"
+                />
+
+        </LinearLayout>
+
 
         <!-- Email -->
         <EditText
