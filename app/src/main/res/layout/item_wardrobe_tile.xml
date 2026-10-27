@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="#E4EFFC"
+    app:strokeWidth="1dp"
+    app:strokeColor="#C2DAF8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/ivWardrobeItem"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/wardrobe_white_rounded"
+            android:padding="16dp"
+            android:scaleType="centerInside"
+            android:src="@android:drawable/ic_menu_gallery"
+            android:contentDescription="Clothing item" />
+
+        <TextView
+            android:id="@+id/tvWardrobeItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:fontFamily="@font/didact_gothic" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

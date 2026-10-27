@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <ImageButton
+            android:id="@+id/btnWardrobeBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:src="?attr/homeAsUpIndicator" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="My Wardrobe"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:fontFamily="@font/cormorant_garamond_light" />
+
+        <ImageButton
+            android:id="@+id/btnWardrobeSort"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Sort"
+            android:src="@android:drawable/ic_menu_sort_by_size" />
+    </LinearLayout>
+
+    <!-- Category filters -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:clipToPadding="false"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupWardrobe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:singleLine="true"
+            app:singleSelection="true"
+            app:selectionRequired="true" />
+    </HorizontalScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvWardrobe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="8dp" />
+
+        <!-- Empty state (hidden while dummy items exist) -->
+        <LinearLayout
+            android:id="@+id/layoutWardrobeEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/wardrobe"
+                android:contentDescription="Empty wardrobe" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Your wardrobe is empty"
+                android:textColor="#000000"
+                android:textSize="26sp"
+                android:fontFamily="@font/cormorant_garamond_light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Tap the &quot;+&quot; button on the dashboard to add your first item."
+                android:textColor="#333333"
+                android:textSize="14sp"
+                android:fontFamily="@font/didact_gothic" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Entry to Styling Studio -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnOpenStylingStudio"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="#d7e8f4"
+        android:fontFamily="@font/didact_gothic"
+        android:text="Styling Studio"
+        android:textColor="#000000"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:icon="@drawable/outfits"
+        app:iconTint="@null" />
+
+</LinearLayout>
