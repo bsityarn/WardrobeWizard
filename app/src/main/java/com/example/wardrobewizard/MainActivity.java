@@ -12,17 +12,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        View addButton = findViewById(R.id.navAdd);
-        addButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
-            startActivity(intent);
-        });
+        findViewById(R.id.navAdd).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, AddItemActivity.class)));
 
         findViewById(R.id.navWardrobe).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, WardrobeActivity.class)));
 
         findViewById(R.id.navOutfits).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, OutfitsActivity.class)));
+
+        findViewById(R.id.navProfile).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class)));
     }
 
     
