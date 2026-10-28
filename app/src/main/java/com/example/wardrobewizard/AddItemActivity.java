@@ -1,5 +1,6 @@
 package com.example.wardrobewizard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -30,7 +31,11 @@ public class AddItemActivity extends AppCompatActivity {
 
         // Configure 2-column Grid Layout Manager
         rvSpecificItems.setLayoutManager(new GridLayoutManager(this, 2));
-        itemAdapter = new ItemAdapter(new ArrayList<>());
+        itemAdapter = new ItemAdapter(new ArrayList<>(), item -> {
+            Intent intent = new Intent(AddItemActivity.this, CameraActivity.class);
+            intent.putExtra("selectedItem", item);
+            startActivity(intent);
+        });
         rvSpecificItems.setAdapter(itemAdapter);
 
         // Populate Chips & render initial items

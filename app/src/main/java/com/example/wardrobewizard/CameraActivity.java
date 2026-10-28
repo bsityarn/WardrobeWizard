@@ -1,6 +1,8 @@
 package com.example.wardrobewizard;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,15 @@ public class CameraActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        Button next = findViewById(R.id.next);
+        next.setOnClickListener(v -> {
+            Intent intent = new Intent(CameraActivity.this, ItemProcessingActivity.class);
+            if (getIntent().hasExtra("selectedItem")) {
+                intent.putExtra("selectedItem", getIntent().getStringExtra("selectedItem"));
+            }
+            startActivity(intent);
         });
     }
 }
