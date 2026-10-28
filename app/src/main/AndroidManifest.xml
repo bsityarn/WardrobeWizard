@@ -50,6 +50,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".OutfitsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".StylingStudioActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
