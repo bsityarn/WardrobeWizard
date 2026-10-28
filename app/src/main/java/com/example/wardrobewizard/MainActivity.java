@@ -17,6 +17,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
             startActivity(intent);
         });
+
+        findViewById(R.id.navWardrobe).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, WardrobeActivity.class)));
+
+        findViewById(R.id.navOutfits).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, OutfitsActivity.class)));
     }
 
     
