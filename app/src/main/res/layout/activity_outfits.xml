@@ -31,7 +31,7 @@
             android:text="Wardrobe Wizard - My Outfits"
             android:textColor="#111111"
             android:textSize="25sp"
-            android:fontFamily="@font/didact_gothic" />
+            android:fontFamily="@font/garamond" />
 
         <ImageButton
             android:id="@+id/btnCreateFolder"
