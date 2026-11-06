@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -20,14 +22,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText editTextFirstName, editTextLastName;
     EditText editTextBirthday, editTextEmail, editTextPassword;
+    Spinner spinnerGender;
     Button buttonRegister;
     TextView textViewLogIn;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        db = FirebaseFirestore.getInstance();
 
         // Connect XML elements
         editTextFirstName = findViewById(R.id.editTextFirstName);
@@ -35,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextBirthday = findViewById(R.id.editTextBirthday);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
+        spinnerGender = findViewById(R.id.spinnerGender);
 
         buttonRegister = findViewById(R.id.buttonRegister);
         textViewLogIn = findViewById(R.id.textViewLogIn);
@@ -71,7 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         // Gender picker
-        Spinner spinnerGender = findViewById(R.id.spinnerGender);
         String[] genderOptions = {"Select Gender", "Male", "Female"};
 
         ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(
@@ -88,20 +93,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Register button
         buttonRegister.setOnClickListener(v -> {
-            String firstName =
-                    editTextFirstName.getText().toString().trim();
-            String lastName =
-                    editTextLastName.getText().toString().trim();
-            String birthday =
-                    editTextBirthday.getText().toString().trim();
-            String email =
-                    editTextEmail.getText().toString().trim();
-            String password =
-                    editTextPassword.getText().toString();
+            String firstName = editTextFirstName.getText().toString().trim();
+            String lastName = editTextLastName.getText().toString().trim();
+            String birthday = editTextBirthday.getText().toString().trim();
+            String gender = spinnerGender.getSelectedItem() != null ? spinnerGender.getSelectedItem().toString() : "";
+            String email = editTextEmail.getText().toString().trim();
+            String password = editTextPassword.getText().toString();
 
             if (firstName.isEmpty() ||
                     lastName.isEmpty() ||
                     birthday.isEmpty() ||
+                    gender.isEmpty() ||
+                    gender.equals("Select Gender") ||
                     email.isEmpty() ||
                     password.isEmpty()) {
 
@@ -110,19 +113,42 @@ public class RegisterActivity extends AppCompatActivity {
                         "Please fill in all fields.",
                         Toast.LENGTH_SHORT
                 ).show();
-
-            } else {
-                Toast.makeText(
-                        RegisterActivity.this,
-                        "Registration details complete!",
-                        Toast.LENGTH_SHORT
-                ).show();
+                return;
             }
+
+            buttonRegister.setEnabled(false);
+
+            // Read check: Verify if email is already registered
+            db.collection(FirestoreReferences.USERS_COLLECTION)
+                    .whereEqualTo(FirestoreReferences.EMAIL_FIELD, email)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                            buttonRegister.setEnabled(true);
+                            Toast.makeText(RegisterActivity.this, "An account with this email already exists.", Toast.LENGTH_SHORT).show();
+                        } else if (task.isSuccessful()) {
+                            // Create: Save new user object in Firestore
+                            User newUser = new User(firstName, lastName, birthday, gender, email, password);
+                            db.collection(FirestoreReferences.USERS_COLLECTION)
+                                    .add(newUser)
+                                    .addOnSuccessListener(documentReference -> {
+                                        // Store generated Document ID into the user object
+                                        documentReference.update("id", documentReference.getId());
+                                        Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        buttonRegister.setEnabled(true);
+                                        Toast.makeText(RegisterActivity.this, "Failed to register: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    });
+                        } else {
+                            buttonRegister.setEnabled(true);
+                            Toast.makeText(RegisterActivity.this, "Error: " + (task.getException() != null ? task.getException().getMessage() : "Unknown error"), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
 
         // Return to Login screen
-        textViewLogIn.setOnClickListener(v -> {
-            finish();
-        });
+        textViewLogIn.setOnClickListener(v -> finish());
     }
 }
