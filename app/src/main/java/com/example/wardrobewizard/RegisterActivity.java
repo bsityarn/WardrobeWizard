@@ -90,7 +90,6 @@ public class RegisterActivity extends AppCompatActivity {
         );
 
         spinnerGender.setAdapter(genderAdapter);
-
         // Register button
         buttonRegister.setOnClickListener(v -> {
             String firstName = editTextFirstName.getText().toString().trim();
